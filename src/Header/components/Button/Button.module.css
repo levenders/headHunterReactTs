@@ -1,0 +1,13 @@
+.headerButton {
+  border: none;
+  margin: 5px;
+  padding: 5px;
+  background-color: initial;
+  color: white;
+  font-size: 20px;
+  transition: scale 0.2s linear;
+}
+
+.headerButton:hover {
+  scale: 1.1;
+}

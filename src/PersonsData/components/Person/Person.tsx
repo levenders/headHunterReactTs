@@ -13,7 +13,7 @@ interface TProps {
   props: TPerson
 }
 
-const img = 'https://via.placeholder.com/600/771796'
+const img = 'https://via.placeholder.com/600/771796' //временный костыль
 
 export const Person: FC<TProps> = ({ props }) => {
   const { name, email, phone } = props
