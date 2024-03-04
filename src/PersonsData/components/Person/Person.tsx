@@ -1,25 +1,29 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './Person.module.css'
+import { TPerson, TPhotoResponse } from '../../../types'
 
-type TPerson = {
-  id: number
-  name: string
-  email: string
-  phone: string
-  img: string
+interface IProps {
+  person: TPerson
 }
 
-interface TProps {
-  props: TPerson
-}
+const API_URL_IMAGE = 'https://jsonplaceholder.typicode.com/photos'
 
-const img = 'https://via.placeholder.com/600/771796' //временный костыль
+export const Person: FC<IProps> = ({ person }) => {
+  const { name, email, phone, id } = person
 
-export const Person: FC<TProps> = ({ props }) => {
-  const { name, email, phone } = props
+  const [imageURL, setImageURL] = useState('')
+
+  useEffect(() => {
+    fetch(`${API_URL_IMAGE}/${id}`)
+      .then((response) => response.json())
+      .then((data: TPhotoResponse) => {
+        setImageURL(data.url)
+      })
+  }, [id])
+
   return (
     <div className={styles.personCard}>
-      <img src={img} alt="selfie"></img>
+      <img src={imageURL} alt="selfie" />
       <hr />
       <h1>{name}</h1>
       <h3>{email}</h3>
