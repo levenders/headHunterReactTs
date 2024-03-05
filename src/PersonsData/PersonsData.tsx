@@ -11,9 +11,17 @@ export const PersonsData: React.FC = () => {
 
   const [sortedPersons, setSortedPersons] = useState<TPerson[]>(persons)
 
+  const [active, setActive] = useState('1')
+
   const handleSortClick = (sortBy: 'name' | 'phone' | 'id') => {
     const newArray = sortPersons({ persons, by: sortBy })
     setSortedPersons(newArray)
+  }
+
+  const toggleActive = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setActive(event.currentTarget.id)
   }
 
   useEffect(() => {
@@ -36,23 +44,41 @@ export const PersonsData: React.FC = () => {
       <div className={styles.sortButtonContainer}>
         <h3>Сортировать:</h3>
         <button
-          className={`${styles.sortButton} ${styles.active}`}
+          className={`${styles.sortButton} ${
+            active === '1' ? styles.active : ''
+          }`}
           type="button"
-          onClick={() => handleSortClick('id')}
+          id="1"
+          onClick={(e) => {
+            handleSortClick('id')
+            toggleActive(e)
+          }}
         >
           По порядку
         </button>
         <button
-          className={styles.sortButton}
+          className={`${styles.sortButton} ${
+            active === '2' ? styles.active : ''
+          }`}
           type="button"
-          onClick={() => handleSortClick('name')}
+          id="2"
+          onClick={(e) => {
+            handleSortClick('name')
+            toggleActive(e)
+          }}
         >
           По имени
         </button>
         <button
-          className={styles.sortButton}
+          className={`${styles.sortButton} ${
+            active === '3' ? styles.active : ''
+          }`}
           type="button"
-          onClick={() => handleSortClick('phone')}
+          id="3"
+          onClick={(e) => {
+            handleSortClick('phone')
+            toggleActive(e)
+          }}
         >
           По номеру
         </button>
